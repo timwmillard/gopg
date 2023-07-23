@@ -1,0 +1,10 @@
+
+{{if eq .Cmd ":exec"}}
+{{range .Comments}}//{{.}}
+{{end -}}
+func (q *Queries) {{.MethodName}}(ctx context.Context, {{ dbarg }} {{.Arg.Pair}}) error {
+    {{- template "queryCodeStdExec" . }}
+    return err
+}
+{{end}}
+

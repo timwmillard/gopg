@@ -1,0 +1,21 @@
+version: 1
+
+connection:
+  url: postgres://user:pass@localhost:8444/db
+  env_var: DATABASE_URL 
+
+typemap:
+  - uuid:
+       type: uuid.UUID
+       import: github.com/gofrs/uuid
+  - text: string
+
+packages:
+  - name: "model"
+    path: "./model"
+    queries: "./model/queries/"
+    gen: "pgx" # std or pgx - default pgx
+
+options:
+  min_field_in_params_struct: 2
+

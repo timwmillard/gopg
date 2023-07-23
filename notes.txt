@@ -1,0 +1,30 @@
+
+# OID for Postgres Types
+
+See:
+github.com/lib/pq/oid package on how to generate OID types.
+
+
+Can run each query to determine types passing `null` as param.
+
+Can determine if table column is nullable via TableOID and AttrNum then check
+if nullable.
+Need to also look for left joins.  Might need to pass query
+----------------
+Field={Name:id TableOID:16389 TableAttributeNumber:1 DataTypeOID:2950 DataTypeSize:16 TypeModifier:-1 Format:1}
+Field={Name:name TableOID:16389 TableAttributeNumber:2 DataTypeOID:25 DataTypeSize:-1 TypeModifier:-1 Format:0}
+Field={Name:line1 TableOID:16396 TableAttributeNumber:2 DataTypeOID:25 DataTypeSize:-1 TypeModifier:-1 Format:0}
+Field={Name:state TableOID:16396 TableAttributeNumber:3 DataTypeOID:25 DataTypeSize:-1 TypeModifier:-1 Format:0}
+----------------
+
+
+Struct Tag examples
+
+type User struct {
+    ID uuid.UUID 
+    Name string `db:"user_id" pre:"strings.Title,strings.Trim" post:"strings.Trim" validate:"validateUser"`
+}
+
+## sqlc left, right and outer join nullable columns
+https://github.com/kyleconroy/sqlc/pull/983/files
+

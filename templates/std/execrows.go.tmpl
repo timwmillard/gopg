@@ -1,0 +1,13 @@
+
+{{if eq .Cmd ":execrows"}}
+{{range .Comments}}//{{.}}
+{{end -}}
+func (q *Queries) {{.MethodName}}(ctx context.Context, {{ dbarg }} {{.Arg.Pair}}) (int64, error) {
+    {{- template "queryCodeStdExec" . }}
+    if err != nil {
+        return 0, err
+    }
+    return result.RowsAffected()
+}
+{{end}}
+

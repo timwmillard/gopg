@@ -1,0 +1,14 @@
+
+{{if eq .Cmd ":one"}}
+{{range .Comments}}//{{.}}
+{{end -}}
+func (q *Queries) {{.MethodName}}(ctx context.Context, {{ dbarg }} {{.Arg.Pair}}) ({{.Ret.DefineType}}, error) {
+    {{- template "queryCodeStdExec" . }}
+	{{- if ne .Arg.Pair .Ret.Pair }}
+	var {{.Ret.Name}} {{.Ret.Type}}
+	{{- end}}
+	err := row.Scan({{.Ret.Scan}})
+	return {{.Ret.ReturnName}}, err
+}
+{{end}}
+

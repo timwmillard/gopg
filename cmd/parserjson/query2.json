@@ -1,0 +1,93 @@
+{
+  "version": 150001,
+  "stmts": [
+    {
+      "stmt": {
+        "SelectStmt": {
+          "targetList": [
+            {
+              "ResTarget": {
+                "val": {
+                  "ColumnRef": {
+                    "fields": [
+                      {
+                        "A_Star": {}
+                      }
+                    ],
+                    "location": 134
+                  }
+                },
+                "location": 134
+              }
+            }
+          ],
+          "fromClause": [
+            {
+              "RangeVar": {
+                "relname": "users",
+                "inh": true,
+                "relpersistence": "p",
+                "location": 141
+              }
+            }
+          ],
+          "whereClause": {
+            "A_Expr": {
+              "kind": "AEXPR_OP",
+              "name": [
+                {
+                  "String": {
+                    "sval": "="
+                  }
+                }
+              ],
+              "lexpr": {
+                "ColumnRef": {
+                  "fields": [
+                    {
+                      "String": {
+                        "sval": "id"
+                      }
+                    }
+                  ],
+                  "location": 153
+                }
+              },
+              "rexpr": {
+                "TypeCast": {
+                  "arg": {
+                    "ParamRef": {
+                      "number": 1,
+                      "location": 158
+                    }
+                  },
+                  "typeName": {
+                    "names": [
+                      {
+                        "String": {
+                          "sval": "pg_catalog"
+                        }
+                      },
+                      {
+                        "String": {
+                          "sval": "int4"
+                        }
+                      }
+                    ],
+                    "typemod": -1,
+                    "location": 162
+                  },
+                  "location": 160
+                }
+              },
+              "location": 156
+            }
+          },
+          "limitOption": "LIMIT_OPTION_DEFAULT",
+          "op": "SETOP_NONE"
+        }
+      },
+      "stmt_len": 165
+    }
+  ]
+}

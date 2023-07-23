@@ -1,0 +1,173 @@
+{
+    "version": 150001,
+    "stmts": [
+        {
+            "stmt": {
+                "SelectStmt": {
+                    "targetList": [
+                        {
+                            "ResTarget": {
+                                "val": {
+                                    "ColumnRef": {
+                                        "fields": [
+                                            {
+                                                "String": {
+                                                    "sval": "users"
+                                                }
+                                            },
+                                            {
+                                                "String": {
+                                                    "sval": "id"
+                                                }
+                                            }
+                                        ],
+                                        "location": 9
+                                    }
+                                },
+                                "location": 9
+                            }
+                        },
+                        {
+                            "ResTarget": {
+                                "val": {
+                                    "ColumnRef": {
+                                        "fields": [
+                                            {
+                                                "String": {
+                                                    "sval": "users"
+                                                }
+                                            },
+                                            {
+                                                "String": {
+                                                    "sval": "name"
+                                                }
+                                            }
+                                        ],
+                                        "location": 20
+                                    }
+                                },
+                                "location": 20
+                            }
+                        },
+                        {
+                            "ResTarget": {
+                                "val": {
+                                    "ColumnRef": {
+                                        "fields": [
+                                            {
+                                                "String": {
+                                                    "sval": "address"
+                                                }
+                                            },
+                                            {
+                                                "String": {
+                                                    "sval": "line1"
+                                                }
+                                            }
+                                        ],
+                                        "location": 33
+                                    }
+                                },
+                                "location": 33
+                            }
+                        },
+                        {
+                            "ResTarget": {
+                                "val": {
+                                    "ColumnRef": {
+                                        "fields": [
+                                            {
+                                                "String": {
+                                                    "sval": "address"
+                                                }
+                                            },
+                                            {
+                                                "String": {
+                                                    "sval": "state"
+                                                }
+                                            }
+                                        ],
+                                        "location": 49
+                                    }
+                                },
+                                "location": 49
+                            }
+                        }
+                    ],
+                    "fromClause": [
+                        {
+                            "JoinExpr": {
+                                "jointype": "join_left",
+                                "larg": {
+                                    "rangevar": {
+                                        "relname": "users",
+                                        "inh": true,
+                                        "relpersistence": "p",
+                                        "location": 68
+                                    }
+                                },
+                                "rarg": {
+                                    "rangevar": {
+                                        "relname": "address",
+                                        "inh": true,
+                                        "relpersistence": "p",
+                                        "location": 84
+                                    }
+                                },
+                                "quals": {
+                                    "a_expr": {
+                                        "kind": "aexpr_op",
+                                        "name": [
+                                            {
+                                                "string": {
+                                                    "sval": "="
+                                                }
+                                            }
+                                        ],
+                                        "lexpr": {
+                                            "columnref": {
+                                                "fields": [
+                                                    {
+                                                        "string": {
+                                                            "sval": "users"
+                                                        }
+                                                    },
+                                                    {
+                                                        "string": {
+                                                            "sval": "id"
+                                                        }
+                                                    }
+                                                ],
+                                                "location": 95
+                                            }
+                                        },
+                                        "rexpr": {
+                                            "columnref": {
+                                                "fields": [
+                                                    {
+                                                        "string": {
+                                                            "sval": "address"
+                                                        }
+                                                    },
+                                                    {
+                                                        "string": {
+                                                            "sval": "user_id"
+                                                        }
+                                                    }
+                                                ],
+                                                "location": 106
+                                            }
+                                        },
+                                        "location": 104
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "limitOption": "LIMIT_OPTION_DEFAULT",
+                    "op": "SETOP_NONE"
+                }
+            }
+        }
+    ]
+}

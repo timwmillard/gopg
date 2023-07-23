@@ -1,0 +1,13 @@
+version: 1
+
+connection:
+  env_var: DATABASE_URL 
+
+packages:
+  - name: "model"
+    path: "model"
+    queries: "model"
+    gen: "pgx" 
+
+typemap:
+
