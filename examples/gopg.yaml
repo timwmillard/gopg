@@ -12,10 +12,25 @@ typemap:
 
 packages:
   - name: "model"
-    path: "./model"
-    queries: "./model/queries/"
-    gen: "pgx" # std or pgx - default pgx
+    path: "model"
+    queries: "model/queries/"
+    lang: "go" # default go
+    gen: "pgx" # default std 
+    templates: "templates/go/pgx" # custom template directory
+
+  - name: "cmodels"
+    path: "c/src/model"
+    queries: "model/queries/"
+    lang: "c" # default go
+    templates: "templates/c" # custom template directory
+
+  - name: "jsmodel"
+    path: "js/model"
+    queries: "model/queries/"
+    lang: "javascript" # default go
+    templates: "templates/js" # custom template directory
 
 options:
-  min_field_in_params_struct: 2
+  query_parameter_limit: 2 # default 2
+
 

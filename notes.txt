@@ -28,3 +28,10 @@ type User struct {
 ## sqlc left, right and outer join nullable columns
 https://github.com/kyleconroy/sqlc/pull/983/files
 
+## Struct mapping
+
+https://github.com/stephenafamo/scan
+
+
+## Go AST find structs
+https://gist.github.com/imantung/60d0c82b8b1641c0aa1c071e1cf77adf

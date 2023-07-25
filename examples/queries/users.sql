@@ -2,8 +2,8 @@
 -- name: GetUsers :many
 -- 
 -- @validation isValidUser
-select *
-from users;
+-- select *
+-- from users;
 
 
 -- name: GetUser :one

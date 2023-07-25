@@ -12,12 +12,26 @@ const (
 type GoType struct {
 	Name      string // eg. uuid
 	ImportPkg string // eg. github.com/gorfs/uuid
+	Pointer   bool
+	Slice     bool
+}
+
+func (gt *GoType) Definition() string {
+	var name = gt.Name
+	if gt.Pointer {
+		name = "*" + name
+	}
+	if gt.Slice {
+		name = "[]" + name
+	}
+	return name
 }
 
 type GoField struct {
 	Name     string
 	GoType   GoType
 	DBColumn string
+	Nilable  bool // Can the type hold nil, eg pointer or slice
 
 	// Optional transformation and validation functions
 	Pre      TransformFunc
@@ -31,7 +45,8 @@ type GoStruct struct {
 }
 
 type Param struct {
-	PgParam string  // eg. $1
+	PgParam string // eg. $1
+	PgType  string
 	GoField GoField // eg id
 }
 
@@ -39,7 +54,13 @@ type QueryColumn struct {
 	Name     string // eg. user_id
 	ColumnID int    // Which is the column index eg. 1, 2, 3
 	PgType   string // text or numeric
-	Nullable bool
+
+	columnNullable bool
+	joinNullable   bool
+}
+
+func (col *QueryColumn) Nullable() bool {
+	return col.columnNullable || col.joinNullable
 }
 
 type QueryFunction struct {

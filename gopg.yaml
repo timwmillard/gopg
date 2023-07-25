@@ -1,6 +1,7 @@
 version: 1
 
 connection:
+  url: postgresql://root:postgres@localhost:55432/gopg
   env_var: DATABASE_URL 
 
 packages:

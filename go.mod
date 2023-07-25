@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/jackc/pgx/v5 v5.4.2
+	github.com/lib/pq v1.10.9
 	github.com/pganalyze/pg_query_go/v4 v4.2.1
 	gopkg.in/yaml.v3 v3.0.1
 )

@@ -27,6 +27,7 @@ func cmdInit() {
 	}
 }
 
+// TODO: should cmdGen or generate function orchestrate the generation?
 func cmdGen(configFile string) {
 	config, err := readConfig(configFile)
 	if err != nil {

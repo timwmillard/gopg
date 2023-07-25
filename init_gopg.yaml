@@ -6,7 +6,7 @@ connection:
 packages:
   - name: "model"
     path: "model"
-    queries: "model"
+    queries: "queries"
     gen: "pgx" 
 
 typemap:

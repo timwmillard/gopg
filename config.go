@@ -71,7 +71,7 @@ func readConfig(filename string) (Config, error) {
 		return Config{}, fmt.Errorf("error opening config file %s: %w", filename, err)
 	}
 
-	var config Config
+	config := DefaultConfig()
 	err = yaml.NewDecoder(file).Decode(&config)
 	if err != nil {
 		return Config{}, fmt.Errorf("error decoding config file %s: %w", filename, err)
