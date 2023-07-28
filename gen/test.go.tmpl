@@ -1,3 +1,11 @@
+package {{.Package}}
+
+import (
+	"context"
+	"database/sql"
+    {{range .Imports}}"{{.}}"
+    {{end}}
+)
 
 const {{.Name}}SQL = `
 {{ .SQL }}
@@ -6,25 +14,18 @@ const {{.Name}}SQL = `
 // {{ .Name }} - {{ .Comment }}
 func {{.Name}}(ctx context.Context, db *sql.DB,
 {{range .Args}}   {{.Name}} {{.Type.Name}},
-{{end}}
-) ({{range .Return}}{{.Type.Name}}, {{end}}error) {
+{{end}}) ({{range .Return}}{{.Type.Name}}, {{end}}error) {
 	// input
 	row := db.QueryRowContext(ctx, {{.Name}}SQL,
-            {{range .Input}}{{.CodeVar.Name}}, // {{.DBField}}
-            {{end}})
+			{{range .Input}}{{.CodeVar.Name}}, // {{.DBField}}
+			{{end}})
 	// output
 	var (
-		retDebtor  model.Debtor
-		retAddress model.Address
-		err        error
+		{{range .Return}}{{.Name}} {{.Type.Name}}
+		{{end}}err        error
 	)
 	err = row.Scan(
-		&retDebtor.FirstName,     // first_name
-		&retDebtor.LastName,      // last_name
-		&retDebtor.Email,         // email
-		&retDebtor.ContactNumber, // contact_number
-		&retAddress.Line1,        // address_line1
-		&retAddress.Suburb,       // address_state
-	)
-	return retDebtor, retAddress, err
+		{{range .Output}}&{{.CodeVar.Name}}, // {{.DBField}}
+		{{end}})
+	return {{range .Return}}{{.Name}}, {{end}}err
 }

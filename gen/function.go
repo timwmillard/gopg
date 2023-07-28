@@ -9,6 +9,7 @@ type Function struct {
 	// Code IN -> SQL IN
 	// SQL OUT -> Code OUT
 
+	Package string
 	Imports []string
 
 	Args []CodeVar
@@ -23,13 +24,27 @@ type CodeType struct {
 	Name   string
 	Import string
 
-	Parent     *CodeType
 	Properties []Property
 }
 
 type Property struct {
 	Name string
 	Type CodeType
+
+	Parent *CodeType
+}
+
+func (c *CodeType) AddProperty(property Property) {
+	property.Parent = c
+	c.Properties = append(c.Properties, property)
+}
+
+func (c *CodeType) IsScalar() bool {
+	return c.Properties == nil
+}
+
+func (c *CodeType) IsObject() bool {
+	return c.Properties != nil
 }
 
 type CodeVar struct {
@@ -38,14 +53,10 @@ type CodeVar struct {
 
 	IsPointer bool
 	IsArray   bool
-
-	Parent *CodeVar // debtor.MOdel
-	Fields []CodeVar
 }
 
-func (v *CodeVar) AddField(field CodeVar) {
-	field.Parent = v
-	v.Fields = append(v.Fields, field)
+func (c *CodeVar) Property(index int) Property {
+	return c.Type.Properties[index]
 }
 
 // Param maps a database parameter to a code variable

@@ -61,6 +61,23 @@ func cmdGenTest(configFile string) {
 	// 	os.Exit(1)
 	// }
 
+	debtorStruct := gen.CodeType{
+		Name:   "model.Debtor",
+		Import: "github.com/sqlgen/gen/model",
+	}
+	debtorStruct.AddProperty(gen.Property{
+		Name: "FirstName",
+		Type: gen.CodeType{
+			Name: "string",
+		},
+	})
+	debtorStruct.AddProperty(gen.Property{
+		Name: "LastName",
+		Type: gen.CodeType{
+			Name: "string",
+		},
+	})
+
 	debtorID := gen.CodeVar{
 		Name: "debtorID",
 		Type: gen.CodeType{
@@ -78,33 +95,16 @@ func cmdGenTest(configFile string) {
 
 	debtor := gen.CodeVar{
 		Name: "debtor",
-		Type: gen.CodeType{
-			Name:   "model.Debtor",
-			Import: "github.com/sqlgen/gen/model",
-		},
-		Fields: []gen.CodeVar{},
+		Type: debtorStruct,
 	}
-	debtor.AddField(gen.CodeVar{
-		Name: "FirstName",
-		Type: gen.CodeType{
-			Name:   "string",
-			Import: "",
-		},
-	})
-	debtor.AddField(gen.CodeVar{
-		Name: "LastName",
-		Type: gen.CodeType{
-			Name:   "string",
-			Import: "",
-		},
-	})
 
 	function := gen.Function{
 		Name:    "UpdaetDebtor",
 		Comment: "Update the debtor details",
 		SQL:     sqlBlock,
+		Package: "main",
 		Imports: []string{
-			"github.com/sqlgen/gen/model",
+			"sqlgen/gen/model",
 			"github.com/gofrs/uuid",
 		},
 		Args: []gen.CodeVar{
@@ -115,16 +115,28 @@ func cmdGenTest(configFile string) {
 		Input: []gen.Param{
 			{DBField: "$1", CodeVar: firmID},
 			{DBField: "$2", CodeVar: debtorID},
-			{DBField: "$3", CodeVar: debtor.Fields[0]},
-			{DBField: "$4", CodeVar: debtor.Fields[1]},
+			{DBField: "$3", CodeVar: gen.CodeVar{
+				Name: "debtor.FirstName",
+				Type: debtorStruct,
+			}},
+			{DBField: "$4", CodeVar: gen.CodeVar{
+				Name: "debtor.LastName",
+				Type: gen.CodeType{Name: "string"},
+			}},
 		},
 		Output: []gen.Param{
-			{DBField: "first_name", CodeVar: debtor.Fields[0]},
-			{DBField: "last_name", CodeVar: debtor.Fields[1]},
+			{DBField: "first_name", CodeVar: gen.CodeVar{
+				Name: "iDebtor.FirstName",
+				Type: gen.CodeType{Name: "string"},
+			}},
+			{DBField: "last_name", CodeVar: gen.CodeVar{
+				Name: "iDebtor.LastName",
+				Type: gen.CodeType{Name: "string"},
+			}},
 		},
 		Return: []gen.CodeVar{
-			debtor,
-			{Type: gen.CodeType{Name: "uuid.UUID"}},
+			{Name: "iDebtor", Type: debtorStruct},
+			{Name: "iFirmID", Type: gen.CodeType{Name: "uuid.UUID"}},
 		},
 	}
 
