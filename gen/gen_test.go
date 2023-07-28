@@ -1,46 +1,11 @@
-package main
+package gen_test
 
 import (
-	_ "embed"
-	"fmt"
-	"log"
-	"os"
 	"sqlgen/gen"
+	"testing"
 )
 
-//go:embed init_sqlgen.yaml
-
-var initConfigFile []byte
-
-func cmdInit() {
-	fmt.Println("sqlgen init")
-
-	_, err := os.Stat("sqlgen.yaml")
-	if os.IsNotExist(err) {
-
-		err := os.WriteFile("sqlgen.yaml", initConfigFile, 0644)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, "unable to create sqlgen.yaml file")
-			os.Exit(1)
-		}
-		fmt.Println(" - Created sqlgen.yaml")
-	} else {
-		fmt.Println(" - sqlgen.yaml already exists, nothing to do")
-	}
-}
-
-// TODO: should cmdGen or generate function orchestrate the generation?
-func cmdGen(configFile string) {
-	config, err := readConfig(configFile)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-
-	generate(config)
-}
-
-const sqlBlock = `
+const sql = `
 UPDATE debtor SET
     first_name = $3,
     last_name = $4,
@@ -54,12 +19,7 @@ WHERE debtor_id = $1
 RETURNING *;
 `
 
-func cmdGenTest(configFile string) {
-	// config, err := readConfig(configFile)
-	// if err != nil {
-	// 	fmt.Fprintln(os.Stderr, err)
-	// 	os.Exit(1)
-	// }
+func TestGen(t *testing.T) {
 
 	debtorID := gen.CodeVar{
 		Name: "debtorID",
@@ -101,8 +61,8 @@ func cmdGenTest(configFile string) {
 
 	function := gen.Function{
 		Name:    "UpdaetDebtor",
-		Comment: "Update the debtor details",
-		SQL:     sqlBlock,
+		Comment: "Update the debtor details.",
+		SQL:     sql,
 		Imports: []string{
 			"github.com/sqlgen/gen/model",
 			"github.com/gofrs/uuid",
@@ -124,13 +84,11 @@ func cmdGenTest(configFile string) {
 		},
 		Return: []gen.CodeVar{
 			debtor,
-			{Type: gen.CodeType{Name: "uuid.UUID"}},
 		},
 	}
 
 	err := gen.Run(function)
 	if err != nil {
-		log.Println("gen.Run error", err)
-		os.Exit(1)
+		t.Error(err)
 	}
 }

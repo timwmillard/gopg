@@ -58,7 +58,7 @@ func DefaultConfig() Config {
 
 func readConfig(filename string) (Config, error) {
 	if filename == "" {
-		filename = "gopg.yaml"
+		filename = "sqlgen.yaml"
 	}
 
 	_, err := os.Stat(filename)

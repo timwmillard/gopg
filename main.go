@@ -1,6 +1,9 @@
 package main
 
-import "flag"
+import (
+	"flag"
+	"fmt"
+)
 
 func main() {
 	var configFile string
@@ -14,6 +17,11 @@ func main() {
 		cmdInit()
 	case "gen":
 		cmdGen(configFile)
+	case "gen-test":
+		cmdGenTest(configFile)
+	case "template create":
+		// Copy default templates to working directory
+		fmt.Println("Creating customer template")
 	default:
 		flag.Usage()
 	}

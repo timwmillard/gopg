@@ -3,6 +3,9 @@ version: 1
 connection:
   url: postgres://user:pass@localhost:8444/db
   env_var: DATABASE_URL 
+  docker:
+    image: "postgres@15"
+    migration: "schema.sql"
 
 typemap:
   - uuid:

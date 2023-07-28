@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"gopsql/pgfunc"
 	"math/rand"
 	"os"
 	"path/filepath"
+	"sqlgen/pgfunc"
 	"strings"
 
 	"github.com/jackc/pgx/v5"
@@ -38,7 +38,7 @@ func parseSQL(conn *pgx.Conn, sql string) (pgfunc.PGQuery, error) {
 	var query pgfunc.PGQuery
 
 	num := rand.Int()
-	name := fmt.Sprintf("gopg_prepare_%d", num)
+	name := fmt.Sprintf("sqlgen_prepare_%d", num)
 
 	var desc *pgconn.StatementDescription
 	var err error

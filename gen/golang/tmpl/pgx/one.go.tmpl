@@ -1,8 +1,8 @@
 
-{{if eq .cmd ":one"}}
+
 {{range .comments}}//{{.}}
 {{end -}}
-func (q *queries) {{.methodname}}(ctx context.context, {{ dbarg }} {{.arg.pair}}) ({{.ret.definetype}}, error) {
+func (q *queries) {{.functionName}}(ctx context.context, {{ dbarg }} {{.arg.pair}}) ({{.ret.definetype}}, error) {
     {{- template "querycodestdexec" . }}
 	{{- if ne .arg.pair .ret.pair }}
 	var {{.ret.name}} {{.ret.type}}
@@ -10,5 +10,4 @@ func (q *queries) {{.methodname}}(ctx context.context, {{ dbarg }} {{.arg.pair}}
 	err := row.scan({{.ret.scan}})
 	return {{.ret.returnname}}, err
 }
-{{end}}
 

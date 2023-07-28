@@ -1,0 +1,12 @@
+package {{.packageName}}
+
+import (
+    {{range .imports}}{{.}}
+    {{end -}}
+)
+
+
+{{tempalte "one" . }}
+{{tempalte "exec" . }}
+{{tempalte "many" . }}
+

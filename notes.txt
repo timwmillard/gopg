@@ -35,3 +35,16 @@ https://github.com/stephenafamo/scan
 
 ## Go AST find structs
 https://gist.github.com/imantung/60d0c82b8b1641c0aa1c071e1cf77adf
+
+## Using docker to auto spin up database
+Could add the following settings, it didn't to run database locally.
+Automatically spin up docker with Postgres image, run the schema files.
+Make the connection and close the docker image.
+```yaml
+connection:
+  docker:
+    image: "postgres@15"
+    migration: "schema.sql"
+```
+https://github.com/ory/dockertest
+
